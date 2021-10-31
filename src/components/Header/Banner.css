@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Fruktur&display=swap');
+.poster{
+    background-image: url('https://i.ibb.co/SdTdcrg/bg-2.jpg');
+    height: 600px;
+    color: aquamarine;
+}
+.heading{
+    text-align: center;
+    width: 50%;
+   padding: 100px;
+    margin: auto;
+    color: black;
+    border-radius: 20px;
+    font-weight: bolder;
+    background-color: rgba(154, 199, 184, 0.404);
+}
