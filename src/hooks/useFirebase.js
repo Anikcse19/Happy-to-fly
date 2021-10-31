@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import initializeAuthentication from '../Authentication/InitializeApp';
 
 
@@ -29,6 +29,15 @@ const useFirebase = () => {
         return () => unsubscribe()
     }, [])
 
+    const createAccountWithGoogle = (email, password) => {
+
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const loginWithEmailAndPassword = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
     const logOut = () => {
         signOut(auth).then(() => {
             setUser({})
@@ -36,11 +45,28 @@ const useFirebase = () => {
             // An error happened.
         });
     }
+    const updateName = (name) => {
+        updateProfile(auth.currentUser, {
+            displayName: name
+        }).then(() => {
+            const newUser = { ...user, displayName: name } // recommend
+            setUser(newUser)
+
+            // ...
+        }).catch((error) => {
+            // An error occurred
+            // ...
+        });
+    }
     return {
+        user, setUser,
         siginInWIthGoogle,
-        user,
-        setUser,
-        logOut, isLoading, setIsLoading
+        createAccountWithGoogle,
+        loginWithEmailAndPassword,
+        isLoading,
+        setIsLoading,
+        logOut,
+        updateName
     }
 };
 

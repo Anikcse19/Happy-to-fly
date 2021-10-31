@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Login.css'
 
 import { useForm } from "react-hook-form";
 import { Link, useHistory, useLocation } from 'react-router-dom';
@@ -7,7 +8,7 @@ import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
 
-    const { siginInWIthGoogle, setUser } = useAuth()
+    const { siginInWIthGoogle, setUser, loginWithEmailAndPassword, setIsLoading } = useAuth()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -31,27 +32,49 @@ const Login = () => {
         // })
 
     }
+    const handleGetEmail = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handleGetPassword = (e) => {
+        setPassword(e.target.value);
+    }
 
 
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const handleLoginWithEmailAndPassword = (e) => {
+        e.preventDefault();
+
+        loginWithEmailAndPassword(email, password)
+            .then((res) => {
+                setIsLoading(true)
+                setUser(res.user);
+                history.push(url)
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }
     return (
-        <div className='text-center'>
+        <div className='text-center w-50 my-5 mx-auto bg'>
             <h3>LOG IN </h3>
-            <form onSubmit={handleSubmit(onSubmit)}>
-
-                <input type='email' placeholder='Your Email'  {...register("Email")} />
+            <form onSubmit={handleLoginWithEmailAndPassword}>
+                <input type="email" onBlur={handleGetEmail} placeholder="Email" />
                 <br />
-
-                <input className='m-2' type='password' placeholder='Your Password' {...register("Password", { required: true })} />
                 <br />
-                {errors.exampleRequired && <span>This field is required</span>}
+                <input type="password" onBlur={handleGetPassword} placeholder="Password" />
+                <br />
+                <br />
+                <input type="submit" className='btn-lg btn-outline-primary my-3' value="login" />
 
-                <input className='m-2 px-4 btn btn-danger' value='Log in' type="submit" />
-                <p>New User?</p><Link to='/registration'>Register first</Link>
             </form>
-            <button onClick={handleGoogleSignIn} className='btn-lg btn-warning'>
+            <p>New User?<Link to='/registration'>Registration please</Link></p>
+            <button onClick={handleGoogleSignIn} className='btn-lg mb-4 btn-warning'>
                 Google Sign in
             </button>
         </div>

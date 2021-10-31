@@ -3,7 +3,7 @@ import useAuth from '../../hooks/useAuth';
 
 const MyOrders = () => {
     const [myOrders, setMyOrders] = useState([])
-    const { user } = useAuth()
+    const { user, isLoading } = useAuth()
 
     const email = user.email
     console.log(email)
@@ -33,6 +33,9 @@ const MyOrders = () => {
                     }
                 }
             })
+    }
+    if (isLoading) {
+        return "loading..."
     }
     return (
         <div className='w-75 mx-auto'>
