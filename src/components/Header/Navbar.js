@@ -20,9 +20,7 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link " to='/home'>HOME</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to='/packages'>PACKAGES</Link>
-                        </li>
+
                         {user.email && <li className="nav-item">
                             <Link className="nav-link" to='/myorders'>MY ORDERS</Link>
                         </li>}

@@ -13,6 +13,8 @@ import AuthProvider from './ContextApi/AuthProvider';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Addpackage from './Pages/AddPackage/Addpackage';
 import ManageAllOrders from './Pages/ManageAllOrders/ManageAllOrders';
+import Footer from './components/Footer/Footer';
+import NotFound from './Pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -27,9 +29,7 @@ function App() {
             <Route exact path='/home'>
               <Home></Home>
             </Route>
-            <Route path='/packages'>
-              <Packages></Packages>
-            </Route>
+
             <PrivateRoute path='/orderplace/:id'>
               <OrderPlace></OrderPlace>
             </PrivateRoute>
@@ -49,8 +49,11 @@ function App() {
             <Route path='/registration'>
               <Registration></Registration>
             </Route>
+            <Route path='*'>
+              <NotFound></NotFound>
+            </Route>
           </Switch>
-
+          <Footer></Footer>
         </BrowserRouter>
       </AuthProvider>
     </div>

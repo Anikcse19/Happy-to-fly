@@ -56,7 +56,7 @@ const OrderPlace = () => {
             }
             {address.address ?
                 <p>Address:{address.address}</p> :
-                <h3>please Write your Address</h3>}
+                <h3>Please Write your Address</h3>}
             {
                 address.name &&
                 <p>Name:{address.name} </p>
